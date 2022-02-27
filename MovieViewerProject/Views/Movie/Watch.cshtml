@@ -1,0 +1,27 @@
+﻿@model MovieViewerProject.Models.ViewModels.MovieDetailsVm
+
+@{
+    var movie = (Movie)ViewData["Movie"];
+    ViewData["Title"] = $"Click here to watch {movie.Title} ";
+    ViewData["Movie"] = $"Start watching your movie";
+}
+
+<h1>@ViewData["Movie"]</h1>
+
+<div>
+
+    <hr />
+    <dl class="row">
+
+       
+        <dd class="col-sm-10">
+           
+            <h4><a style="text-align:center;" href="@Html.DisplayFor(model => model.IMDBUrl)" target="_blank">@ViewData["Title"]</a></h4>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">All Movies</a> |
+    <a asp-action="Index" asp-controller="Home">Watched Movies</a> |
+    <a asp-action="CreateRating" asp-controller="Movie" asp-route-id="@Model.Id">Rate Movie</a>
+</div>

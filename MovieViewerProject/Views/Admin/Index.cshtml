@@ -1,0 +1,66 @@
+﻿@model IEnumerable<MovieViewerProject.Models.ViewModels.MovieDetailsVm>
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h1>Movie Index</h1>
+
+    <p>
+        <a asp-action="CreateMovie" asp-controller="Admin">Add New Movie</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Year)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LengthInMinutes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IMDBUrl)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Year)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LengthInMinutes)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <a href="@Html.DisplayFor(modelItem => item.IMDBUrl)" target="_blank">@Html.DisplayFor(modelItem => item.IMDBUrl)</a>
+                    </td>
+                    <td>
+                        <a asp-action="EditMovie" asp-controller="Admin" asp-route-id="@item.Id">Edit Movie</a>  <br><br>
+                        <a asp-action="Details" asp-controller="Movie" asp-route-id="@item.Id">Movie Details</a>  <br><br>
+                        <a asp-action="DeleteMovie" asp-controller="Admin" asp-route-id="@item.Id">Delete Movie</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

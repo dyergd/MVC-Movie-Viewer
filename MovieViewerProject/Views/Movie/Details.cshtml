@@ -1,0 +1,47 @@
+﻿@model MovieViewerProject.Models.Entities.Movie
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Movie Details</h1>
+
+<div>
+   
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LengthInMinutes)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LengthInMinutes)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class = "col-sm-10">
+            $@Html.DisplayFor(model => model.Price)
+        </dd>
+     
+    </dl>
+</div>
+<div>
+    <a asp-action="Watch" asp-controller="Movie" asp-route-id="@Model.Id">Watch</a> |
+    <a asp-action="Index">All Movies</a> |
+    <a asp-action="Index" asp-controller="Home">Watched Movies</a> |
+    <a asp-action="CreateRating" asp-controller="Movie" asp-route-id="@Model.Id">Rate Movie</a>
+
+
+</div>

@@ -1,0 +1,22 @@
+﻿@model MovieViewerProject.Models.ViewModels.MovieDetailsVm
+
+@{
+    var movie = (Movie)ViewData["Movie"];
+    ViewData["Title"] = $"Your card will be charged ${movie.Price} for {movie.Title} ";
+}
+
+<h1>Checkout</h1>
+
+<div>
+    <h4>@ViewData["Title"]</h4>
+    Select Pay to watch the movie. <br><br>
+    <form asp-action="PayMoney" asp-controller="Movie">
+    <input type="button" value="Pay" class="btn btn-primary"  onclick="location.href= @Url.Action("Watch", movie.Id)" />
+    </form>
+    
+</div>
+<br>
+<div>
+    <a asp-action="Index">All Movies</a> |
+    <a asp-action="Index" asp-controller="Home">Watched Movies</a>
+</div>

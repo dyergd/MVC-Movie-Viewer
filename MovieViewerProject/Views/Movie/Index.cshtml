@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MovieViewerProject.Models.ViewModels.MovieDetailsVm>
+
+@{
+    var user = (ApplicationUser)ViewData["User"];
+    var watchList = (List<Watched>)ViewData["Watch"];
+    Watched watchedMovie = null;
+    watchList.ForEach(delegate (Watched watched) 
+    { 
+        watchedMovie = watched; 
+    });
+
+ }
+
+
+
+<h1>Movie Index</h1>
+<div>
+    <h6><p>There are @Model.Count() Movies in our collection</p></h6>
+    <a asp-action="Index" asp-controller="Home">Watched Movies</a>
+</div>
+<br>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+
+            <th>
+                Average Rating
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            @{
+                var movieTitle = item.Title;
+                var watchedTitle = $"{movieTitle} [Watched]";
+                var unwatched = $"{movieTitle} [Not Watched]";
+            }
+
+               
+
+                @if (user.Profile.WatchedCollection.Contains(watchedMovie) == true)
+                {
+                    <td>
+                        <h3>  @watchedTitle </h3>
+                    </td>
+                }
+
+                @if (user.Profile.WatchedCollection.Contains(watchedMovie) == false)
+                {
+                    <td>
+                        <h3>@unwatched </h3>
+                    </td>
+                }  
+        <td>
+            @item._rating.Count()
+        </td>
+
+        <td>
+            <a asp-action="Details" asp-controller="Movie" asp-route-id="@item.Id">Details</a>  <br><br>
+            <a asp-action="Watch" asp-controller="Movie" asp-route-id="@item.Id">Watch</a> <br><br>
+            <a asp-action="CreateRating" asp-controller="Movie" asp-route-id="@item.Id">Rate Movie</a>
+        </td>
+            </tr>
+        }
+    </tbody>
+</table>

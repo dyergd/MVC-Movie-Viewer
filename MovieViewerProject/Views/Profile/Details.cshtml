@@ -1,0 +1,78 @@
+﻿@model MovieViewerProject.Models.Entities.Profile
+
+@{
+    var user = (ApplicationUser)ViewData["User"];
+    var profile = user.Profile;
+    ViewData["Title"] = $"{user.FirstName} {user.LastName}";
+
+    string hiddenccNum = "";
+    var ccNum = profile.CreditCardNumber;
+
+    for (int i = 0; i <= ccNum.Length - 4; i++)
+    {
+        hiddenccNum += "*";
+    }
+
+    hiddenccNum += ccNum.Substring(ccNum.Length - 4);
+
+    var Address = $"{profile.StreetAddress} {profile.City}, {profile.State} {profile.Zip}";
+  
+}
+
+
+<h1>Profile Details</h1>
+
+<div>
+
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Full Name
+        </dt>
+        <dd class="col-sm-10">
+            @ViewData["Title"]
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CreditCardNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @hiddenccNum
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CreditCardExp)
+        </dt>
+         @if (profile.CreditCardExp < DateTime.Now)
+         {
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreditCardExp) - Your Credit Card is Expired
+            </dd>
+         }
+        
+        <dd class="col-sm-10">
+              @Html.DisplayFor(model => model.CreditCardExp)
+        </dd>
+        
+        <dt class="col-sm-2">
+            Address
+        </dt>
+        <dd class="col-sm-10">
+            @Address
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MoneySpent)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MoneySpent)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-controller="Profile"
+       asp-route-id="@profile.ProfileId">Edit Profile</a> |
+    <a asp-action="Delete" asp-controller="Profile"
+       asp-route-id="@profile.ProfileId">Remove Profile</a> |
+    <a asp-action="Index" asp-controller="Movie">All Movies</a> |
+    <a asp-action="Index" asp-controller="Home">Watched Movies</a>
+</div>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MovieViewerProject.Models.ViewModels.MovieDetailsVm>
+
+@{
+    ///var watchData = (Watched)ViewData["Watch"];
+    ViewData["Title"] = "";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome To Scorchin Movies</h1>
+    <h5><a asp-action="Index" asp-controller="Movie">All Movies</a>  </h5>
+    <br> <br>
+
+    <h1>Watched Movies</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    Number of Times Watched
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                       @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+
+                    <td>
+                       number of times watched
+                    </td>
+
+
+                    <td>
+                        <a asp-action="Details" asp-controller="Movie" asp-route-id="@item.Id">Movie Details</a>  <br><br>
+                        <a asp-action="Watch" asp-controller="Movie" asp-route-id="@item.Id">Watch Again</a> <br> <br>
+                        <a asp-action="CreateRating" asp-controller="Movie" asp-route-id="@item.Id">Rate Movie</a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
